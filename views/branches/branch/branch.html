@@ -1,0 +1,47 @@
+<loading></loading>
+<div style="height:5em">.</div>
+<div class="container-fluid" style="height:{{height_screen_dashboard}}px;">
+  <div class="row">
+    <div class="col-md-10">  	
+      <br>
+      <div class="row">
+        <div class="col-md-9">
+          <h1 class="text-muted">
+            <i class="fa fa-map-marker text-danger" aria-hidden="true"></i> 
+            Branch         
+          </h1>
+        </div>
+        <div class="col-md-3">
+          <form class="form-inline pull-right">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" ng-model="key_employee">
+          </form>
+        </div>
+      </div>      
+      <hr>
+      <br>      
+      <div class="text-center" ng-show="employees == false">
+        <br> <br> 
+        <h1 class="text-muted">No employees yet.</h1>
+        <hr width="25%">
+      </div>
+      <div ng-repeat = "e in employees | filter: key_employee">
+      <div class="card employee_card_outside">
+        <img class="card-img-top employee_card_inside" src="{{img_route_xk(e.img)}}" alt="{{e.name}} {{e.last_name}}" title="{{e.name}} {{e.last_name}}">
+        <div class="card-body">
+          <h4 class="card-title text-muted">{{e.name}} {{e.last_name}}</h4>
+          <p class="card-text text-muted"><i class="fa fa-id-badge col-md-1 text-sm" aria-hidden="true"></i> <span class="col-md-11">{{e.document}}</span></p>
+          <p class="card-text text-muted"><i class="fa fa-envelope col-md-1 text-sm" aria-hidden="true"></i> <span class="col-md-11">{{e.email}}</span></p>
+          <p class="card-text text-muted"><i class="fa fa-map-marker col-md-1 text-sm" aria-hidden="true"></i> <span class="col-md-11">{{e.address}}</span></p>
+          <p class="card-text text-muted"><i class="fa fa-mobile col-md-1 text-sm" aria-hidden="true"></i> <span class="col-md-11">{{e.phone}}</span></p>
+          <a href="/#/employee/{{e.id}}" class="btn btn-danger btn-block"><i class="fa fa-eye" aria-hidden="true"></i></a>
+          <!--<a href="#" class="btn btn-link text-danger"><i class="fa fa-pencil text-sm" aria-hidden="true"></i></a>-->
+          <!--<a href="#" class="btn btn-link text-danger"><i class="fa fa-trash text-sm" aria-hidden="true"></i></a>-->
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+       <div ng-include="'/views/menu.html'"></div>
+    </div>
+  </div>    
+</div>

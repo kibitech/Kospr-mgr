@@ -1,0 +1,181 @@
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
+
+* {  
+  font-family: 'Questrial', sans-serif;
+}
+
+html,body,#map {
+	width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+.icon-index {
+	font-size: 70px;
+	color: #C2C1C8;
+	margin-left:15%;
+}
+
+.navbar {
+	margin-bottom: 0;
+}
+
+.hidde {
+	visibility: hidden;
+}
+
+.show {
+	visibility: visible;
+}
+
+.transparent {
+	background-color: transparent !important;
+	border-color: transparent !important
+}
+
+.light {
+	color: #fff;
+}
+
+.well-default{
+	background-color: #FFF;
+	border-radius: 5px;
+	border: 1px solid #E0E0E0;
+}
+
+.well{
+	background-color: #eee;
+	border-radius: 5px;
+	border: 1px solid #E0E0E0;
+}
+
+.bloque_mar {
+		margin-left: 20px;
+}
+
+.bg-tech {
+  background-color: #eee;
+}
+
+
+.sombra {  
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.text-xs {
+  font-size: 10px;
+}
+
+.text-sm {
+  font-size: 20px;
+}
+
+.text-md {
+  font-size: 30px;
+}
+
+.text-lg {
+  font-size: 50px;
+}
+
+.text-icon {
+  color: #333f56;
+}
+
+.text-light {
+  color:#FFF;
+}
+
+.cursor {
+  cursor: pointer;
+	text-decoration: none !important;
+}
+
+.bg-dark {
+  background-color:#444;
+}
+
+.bg-footer-huesped {
+  color:#333;
+  font-size:13px;
+  background-color:#999;
+  border:0px;
+}
+
+.username {
+	text-decoration:none;
+	color:#4ebf51;
+	cursor: pointer;
+}
+
+.username:hover {
+	color:#4ca34f;
+	cursor:hand;
+	text-decoration: none;
+}
+
+.text-e_d {
+	color: #565656;
+}
+
+.text-clear {
+	color: #FFFFFF;
+}
+
+.badge-success {
+  background-color: #468847;
+}
+.badge-success:hover {
+  background-color: #356635;
+}
+
+.loading {
+	position:fixed;	
+	top:0;
+	left:0;
+	background: #eee;
+	position:fixed;
+	width:100%; 
+	height:100%; 
+	z-index:1;
+}
+
+.loading_gif{ 
+	position:fixed;
+	top:50%;
+	left:50%;
+	color:#444;
+}
+
+.menu {
+  font-size:20px;	
+}
+.menu:hover {
+  font-size:30px;
+}
+
+.employee_card_outside {
+	width: 20rem;
+	float:left;
+	margin-left:3%;
+	margin-bottom:3%;
+}
+
+.employee_card_inside {
+	width:20em;
+	height:22em;
+	max-height:22em;
+	max-width:20em;
+}
+
+/* Files */
+[hidden] {
+  display: none !important;
+}
+/* Files */
+
+

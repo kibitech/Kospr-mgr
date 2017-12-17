@@ -1,0 +1,52 @@
+<loading></loading>
+<div style="height:5em">.</div>
+<div class="container-fluid" style="height:{{height_screen_dashboard}}px;">
+  <div class="row">
+    <div class="col-md-10">  	
+      <br>
+      <div class="row">
+        <div class="col-md-9">
+          <h1 class="text-muted"><i class="fa fa-map-marker text-danger" aria-hidden="true"></i> Branches</h1>
+        </div>
+        <div class="col-md-3">
+          <h1 class="text-muted cursor" data-toggle="modal" data-target="#add_branch"><i class="fa fa-plus text-danger pull-right" aria-hidden="true"></i></h1>          
+        </div>
+      </div>
+      <hr>
+      <br>  
+      <div ng-repeat = "b in branches">
+        <div class="card border-danger mb-3" style="max-width: 20rem;float:left;margin-left:5em;width:15em;">
+          <div class="card-header text-light bg-danger">            
+            <div class="row">
+              <div class="col-md-7">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>                
+              </div>
+              <div class="col-md-5">
+                <a class="card-link cursor" title="Edit branch" data-toggle="modal" data-target="#edit_branch" ng-click="show_edit_brand()"><i class="fa fa-pencil text-light" aria-hidden="true"></i></a>
+                <a class="card-link cursor" title="General report" data-toggle="modal" data-target="#general_report" ng-click="load_branch()"><i class="fa fa-tasks text-light" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body text-danger">
+            <h4 class="card-title text-center"><a href="/#/branch/{{b.ncd_id}}" style="text-decoration:none;" class="text-danger">{{b.ncd_nom}}</a></h4>           
+          </div>         
+        </div>
+      </div>
+    </div> 
+    <div class="col-md-2">
+       <div ng-include="'/views/menu.html'"></div>
+    </div>
+  </div>    
+</div>
+
+<!-- Modales -->
+<div class="modal fade" id="edit_branch" tabindex="-1" role="dialog" aria-labelledby="edit_branch" aria-hidden="true">  
+	<div ng-include="'views/branches/edit_branch.html'"></div>
+</div>
+<div class="modal fade" id="add_branch" tabindex="-1" role="dialog" aria-labelledby="add_branch" aria-hidden="true">  
+	<div ng-include="'views/branches/add_branch.html'"></div>
+</div>
+<div class="modal fade" id="general_report" tabindex="-1" role="dialog" aria-labelledby="general_report" aria-hidden="true">  
+	<div ng-include="'views/branches/general_report.html'"></div>
+</div>
+<!-- Modales -->	

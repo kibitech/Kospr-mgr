@@ -1,0 +1,23 @@
+{
+  "name": "Kospr",
+  "description": "Kospr PR",
+  "main": "index.html",
+  "keywords": [    
+  ],
+  "authors": [
+    "Kibitech [Judlup Luna]"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://kibitech.github.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "components-font-awesome": "^4.7.0",
+    "angular-ui-bootstrap-datetimepicker": "^2.5.0"
+  }
+}

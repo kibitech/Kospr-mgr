@@ -1,0 +1,70 @@
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">    
+    <div class="modal-body">      
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">                                
+            <div class="opacity well-base">
+              <h3 class="text-center"><span class="text-muted"><i class="fa fa-tasks text-danger" aria-hidden="true"></i> General report</span></h3>
+              <hr>
+              <form name="form_report_between_dates">
+                <fieldset>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <input class="form-control" id="inputfirstdate" placeholder="firstdate" type="date" ng-model="r_between.firstdate" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <input class="form-control" id="inputseconddate" placeholder="seconddate" type="date" ng-model="r_between.seconddate" class="form-control" required>
+                      </div>  
+                    </div>
+                    <div class="col-md-2">  
+                      <div class="form-group">
+                          <button type="button" class="btn btn-danger btn-block" ng-disabled="form_report_between_dates.$invalid" ng-click="general_report(r_between)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>                  
+                </fieldset>
+              </form>
+              <hr>      
+              <div> 
+                <div class="text-center" ng-show="general.general_report == false || general == false">
+                  <h3 class="text-muted"> No registers </h3>
+                </div>
+                <table class="export-table table table-striped table-bordered display" style="width: 100%; margin-top: 20px" ng-hide="general == false">
+                  <thead>
+                      <tr>
+                        <th>Document</th>
+                        <th>Name</th>
+                        <th>Hours Worked</th>
+                        <th>Schedule</th>
+                        <th>Hour month</th>
+                        <th>Hour status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr ng-repeat="r in general | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize" ng-click="get_row()">
+                        <td>{{r.document}}</td>
+                        <td>{{r.name}} {{r.last_name}} </td>
+                        <td>{{r.hour_worked}}</td>
+                        <td>{{r.schedule}} <br><small class="text-muted">{{r.schedule_hour}} Hours</small> </td>
+                        <td>{{r.hour_month}}</td>                        
+                        <td> <span ng-show="r.hour_extra > 0"> + {{r.hour_extra - r.hour_month}} </span> <span ng-show="r.hour_left > 0"> - {{r.hour_month - r.hour_left}} </span> <span ng-show="r.hour_extra == 0"> Ok </span> </td>
+                    </tr>
+                  </tbody>
+              </table>
+              </div>
+               <div class="btn-group" role="group" ng-hide="general == false">
+                <button class="btn btn-danger" data-ng-click="exportAction('csv')" title="CSV export"> <i class="fa fa-file-o" aria-hidden="true"></i></button>
+                <button class="btn btn-danger" data-ng-click="exportAction('excel')" title="Excel export"> <i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
+                <button class="btn btn-danger" data-ng-click="exportAction('pdf')" title="PDF export"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+              </div>	
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

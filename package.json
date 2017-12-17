@@ -1,0 +1,28 @@
+{
+  "name": "kospr-mgr",
+  "version": "0.1.0",
+  "description": "Webapp for Kospr management",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kibitech/kospr-mgr.git"
+  },
+  "keywords": [
+    "kospr-mgr",
+    "kospr",
+    "personal",
+    "robot",
+    "kibitech",
+    "angular",
+    "bootstrap4"
+  ],
+  "author": "Kibitech [Judlup Luna]",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/kibitech/kospr-mgr/issues"
+  },
+  "homepage": "https://github.com/kibitech/kospr-mgr#readme"
+}

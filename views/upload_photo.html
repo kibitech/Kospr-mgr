@@ -1,0 +1,27 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">    
+    <div class="modal-body" style="position: relative;padding: 5px;right: 27px;">      
+      <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">                                
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-11">
+                    <!-- Image upload -->
+                    <label class="btn btn-danger" title="Browse">
+                        <i class="fa fa-camera" aria-hidden="true"></i> <input type="file" hidden onchange="angular.element(this).scope().img_prev(this)" file-model="myFile">
+                    </label>    
+                    <button style="position:relative;bottom:0.2em;" title="Update" class="btn btn-primary" ng-click="uploadFile(upload_option)" ng-disabled="prev_src == '' || prev_src == null"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                    <button style="position:relative;bottom:0.2em;" title="Delete" class="btn btn-default" ng-click="prev_src_clr()"><i class="fa fa-trash text-clear" aria-hidden="true"></i></button>                    
+                    <br>
+                    <img style="position:relative;left:5em;" class="card-img-top employee_card_inside img-thumbnail" ng-if="prev_src" id="preview" ng-src="{{prev_src}}" width="280px" height="250px"/>                    
+                    <!-- Image upload -->                    
+                  </div>
+                </div>
+              </div> 
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

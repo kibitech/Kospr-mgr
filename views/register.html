@@ -1,0 +1,38 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">    
+    <div class="modal-body">      
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">                                
+            <div class="opacity well-base">
+              <h3 class="text-center"><span class="text-muted">Register</span></h3>
+              <hr>
+              <form name="regform">
+                <fieldset>
+                  <div class="form-group">
+                    <input class="form-control" id="inputUsername" placeholder="Username" type="text" ng-model="regdata.username" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" id="inputEmail" placeholder="Email" type="text" ng-model="regdata.email" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" id="inputPassword" placeholder="Password" type="password" ng-model="regdata.pass1" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" id="inputPassword" placeholder="Password" type="password" ng-model="regdata.pass2" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" id="inputPhone" placeholder="Phone" type="text" ng-model="regdata.phone" class="form-control" required>
+                  </div>				
+                  <div class="form-group">
+                      <button type="button" class="btn btn-danger btn-block" ng-disabled="regform.$invalid" ng-click="registrar(regdata)">Register</button>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>
