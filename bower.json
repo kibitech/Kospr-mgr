@@ -1,6 +1,6 @@
 {
-  "name": "Kospr",
-  "description": "Kospr PR",
+  "name": "kospr-mgr",
+  "description": "Webapp for Kospr management",
   "main": "index.html",
   "keywords": [    
   ],
