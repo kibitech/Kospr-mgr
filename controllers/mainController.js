@@ -1,16 +1,26 @@
-//********************************************************
+//************************************************
 //                 MAIN CONTROLLER
-//********************************************************
+//************************************************
 var url           = '';
 var url_e_d       = '';
 var photo_url     = '';
-var apikey        = '';
+var apikey        = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1MTM5ODU1MTZ9.Bb9n4ZptsqaQShN-pbUBlpWVvrdE7ATlPZ10NicwecI';
 app.controller('mainController', function($scope,$http,$route,$rootScope,$location,$anchorScroll,$compile,$sce,$timeout,$filter,fileUpload) {
   $scope.height_screen = screen.height;
   $scope.height_screen_home = screen.height - (screen.height * 0.21);
   $scope.height_screen_menu = screen.height - (screen.height * 0.24);
   $scope.height_screen_dashboard = screen.height - (screen.height * 0.24);    
   
+  //Test
+  $http.get('http://localhost:4000/users', { headers: {'Authorization': 'Bearer '+apikey} }).then(successCallback_, errorCallback_);
+    function successCallback_(wuser){
+      console.log(wuser);          
+    }
+    function errorCallback_(error){
+        //error code
+    }        
+  //
+
   $scope.logout = function() {
     $scope.loading = true;
     $(".loading").fadeIn("300");
@@ -20,11 +30,13 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
     $(".loading").fadeOut("300");
     location.reload();
   };  
+
   $scope.username   = localStorage.getItem("user_name");
   $scope.user_id    = localStorage.getItem("user_id");
   $scope.user_img   = localStorage.getItem("user_img");
   $scope.rol        = localStorage.getItem("user_rol");
   var login_estado  = localStorage.getItem("signed_in");
+
   $rootScope.date_ = new Date();
   
   if(login_estado)
