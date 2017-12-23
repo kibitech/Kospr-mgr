@@ -1,10 +1,12 @@
 //************************************************
 //                 MAIN CONTROLLER
 //************************************************
-var url           = '';
+var url           = 'http://localhost:4000';
+var apikey        = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1MTM5ODU1MTZ9.Bb9n4ZptsqaQShN-pbUBlpWVvrdE7ATlPZ10NicwecI';
+var headers       = { headers: {'Authorization': 'Bearer '+apikey} };
 var url_e_d       = '';
 var photo_url     = '';
-var apikey        = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoxLCJpYXQiOjE1MTM5ODU1MTZ9.Bb9n4ZptsqaQShN-pbUBlpWVvrdE7ATlPZ10NicwecI';
+
 app.controller('mainController', function($scope,$http,$route,$rootScope,$location,$anchorScroll,$compile,$sce,$timeout,$filter,fileUpload) {
   $scope.height_screen = screen.height;
   $scope.height_screen_home = screen.height - (screen.height * 0.21);
@@ -12,7 +14,7 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
   $scope.height_screen_dashboard = screen.height - (screen.height * 0.24);    
   
   //Test
-  $http.get('http://localhost:4000/users', { headers: {'Authorization': 'Bearer '+apikey} }).then(successCallback_, errorCallback_);
+  $http.get(url+'/users',headers).then(successCallback_, errorCallback_);
     function successCallback_(wuser){
       console.log(wuser);          
     }
@@ -48,6 +50,7 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
     $scope.loged = false;
   }    
   
+  /*
   $scope.registrar=function(data)
   {
     var username      = data.username.toLowerCase();
@@ -90,6 +93,7 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
       alert("Passwords don't match.");
     }
   };
+  */
   
   $scope.login_auto=function(user,pass)
   {
@@ -97,38 +101,30 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
     $scope.loading = true;
     $(".loading").fadeIn("300");  
     //
-    $http.get(url+apikey+'/login/{"username":"'+user.toLowerCase()+'", "password":"'+pass+'","platform":"app"}').then(successCallback, errorCallback);
-      function successCallback(data){
-        if(data.data.login == true)
-        {
-          //
-          $http.get(url_e_d+'wuser/'+user.toLowerCase()).then(successCallback_, errorCallback_);
-          function successCallback_(wuser){
-            localStorage.setItem("signed_in", true);
-            localStorage.setItem("user_id", wuser.data.id);
-            localStorage.setItem("user_name", wuser.data.username);
-            localStorage.setItem("user_img", wuser.data.img);
-            localStorage.setItem("user_correo", wuser.data.email);
-            localStorage.setItem("user_rol", wuser.data.rol);
-            data.user = "";
-            data.password = "";
-          }
-          function errorCallback_(error){
-              //error code
-          }
-          $scope.loading = false;
-          $(".loading").fadeOut("300");
-          location.reload();
-          //          
-        }
-        else
-        {
-          alert("Wrong user");
-        }
+    $http.get(url+'/login/{"username":"'+username.toLowerCase()+'", "password":"'+pass+'"}',headers).then(successCallback, errorCallback);
+    function successCallback(res){
+      //console.log("RESP",res.data)
+      if(res.data.login == true)
+      {        
+        localStorage.setItem("signed_in", true);
+        localStorage.setItem("user_id", res.data.user.id);
+        localStorage.setItem("user_name", res.data.user.username);        
+        localStorage.setItem("user_email", res.data.user.email);
+        localStorage.setItem("user_rol", res.data.user.type);
+        data.user = "";
+        data.password = "";
+        $scope.loading = false;
+        $(".loading").fadeOut("300");
+        location.reload();              
       }
-      function errorCallback(error){
-          //error code
+      else
+      {
+        alert("Wrong user");
       }
+    }
+    function errorCallback(error){
+        //error code
+    }
     //
   }
   
@@ -269,7 +265,7 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
 //··                  LOGIN CONTROLLER                  ··
 //························································
 //························································
-app.controller('loginController', function($scope,$http,$rootScope) {
+app.controller('loginController', function($scope,$http,$rootScope,$compile) {
   $scope.login = function(data)
   {
     var username     = data.user;
@@ -277,27 +273,21 @@ app.controller('loginController', function($scope,$http,$rootScope) {
     $scope.loading = true;
     $(".loading").fadeIn("300");
     //
-    $http.get(url+apikey+'/login/{"username":"'+username.toLowerCase()+'", "password":"'+password+'","platform":"app"}').then(successCallback, errorCallback);
+    $http.get(url+'/login/{"username":"'+username.toLowerCase()+'", "password":"'+password+'"}',headers).then(successCallback, errorCallback);
     function successCallback(res){
+      //console.log("RESP",res.data)
       if(res.data.login == true)
-      {
-        $http.get(url_e_d+'wuser/'+username.toLowerCase()).then(successCallback_, errorCallback_);
-        function successCallback_(wuser){
-          localStorage.setItem("signed_in", true);
-          localStorage.setItem("user_id", wuser.data.id);
-          localStorage.setItem("user_name", wuser.data.username);
-          localStorage.setItem("user_img", wuser.data.img);
-          localStorage.setItem("user_correo", wuser.data.email);
-          localStorage.setItem("user_rol", wuser.data.rol);
-          data.user = "";
-          data.password = "";
-          $scope.loading = false;
-          $(".loading").fadeOut("300");
-          location.reload();
-        }
-        function errorCallback_(error){
-            //error code
-        }        
+      {        
+        localStorage.setItem("signed_in", true);
+        localStorage.setItem("user_id", res.data.user.id);
+        localStorage.setItem("user_name", res.data.user.username);        
+        localStorage.setItem("user_email", res.data.user.email);
+        localStorage.setItem("user_rol", res.data.user.type);
+        data.user = "";
+        data.password = "";
+        $scope.loading = false;
+        $(".loading").fadeOut("300");
+        location.reload();              
       }
       else
       {
@@ -315,26 +305,30 @@ app.controller('loginController', function($scope,$http,$rootScope) {
     //alert("autologin-"+user+'-'+pass);
     $scope.loading = true;
     $(".loading").fadeIn("300");
-    $http.get(url+apikey+'/login/{"username":"'+user.toLowerCase()+'", "password":"'+pass+'","platform":"app"}').success(function(data){
-      if(data.login == true)
-      {
+    $http.get(url+'/login/{"username":"'+username.toLowerCase()+'", "password":"'+password+'"}',headers).then(successCallback, errorCallback);
+    function successCallback(res){
+      //console.log("RESP",res.data)
+      if(res.data.login == true)
+      {        
+        localStorage.setItem("signed_in", true);
+        localStorage.setItem("user_id", res.data.user.id);
+        localStorage.setItem("user_name", res.data.user.username);        
+        localStorage.setItem("user_email", res.data.user.email);
+        localStorage.setItem("user_rol", res.data.user.type);
+        data.user = "";
+        data.password = "";
         $scope.loading = false;
         $(".loading").fadeOut("300");
-        $http.get(url+'wuser/'+user.toLowerCase()).success(function(wuser){
-            localStorage.setItem("signed_in", true);
-            localStorage.setItem("user_id", wuser.id);
-            localStorage.setItem("user_name", wuser.username);
-            localStorage.setItem("user_img", wuser.img);
-            localStorage.setItem("user_correo", wuser.email);
-            localStorage.setItem("user_rol", wuser.rol);
-        })
-        location.reload();
+        location.reload();              
       }
       else
       {
         alert("Wrong user");
       }
-    });
+      function errorCallback(error){
+          //error code
+      }
+    }
   }
   
 	/*
@@ -435,10 +429,10 @@ app.controller('loginController', function($scope,$http,$rootScope) {
 //························································
 //························································
 app.controller('dashboardCtrl', function($scope, $http,$sce, $rootScope) {
-  $scope.username = localStorage.getItem("user_name");
-  $scope.user_img = localStorage.getItem("user_img");
-  $scope.user_id  = localStorage.getItem("user_id");  
-  var user_id     = localStorage.getItem("user_id");
+  $scope.username   = localStorage.getItem("user_name");
+  $scope.user_email = localStorage.getItem("user_email");
+  $scope.user_rol   = localStorage.getItem("user_rol");
+  $scope.user_id    = localStorage.getItem("user_id");    
 });
 
 //························································
@@ -447,10 +441,10 @@ app.controller('dashboardCtrl', function($scope, $http,$sce, $rootScope) {
 //························································
 //························································
 app.controller('branchesCtrl', function($scope, $http,$sce, $rootScope) {
-  $scope.username = localStorage.getItem("user_name");
-  $scope.user_img = localStorage.getItem("user_img");
-  $scope.user_id  = localStorage.getItem("user_id");  
-  var user_id     = localStorage.getItem("user_id");
+  $scope.username   = localStorage.getItem("user_name");
+  $scope.user_email = localStorage.getItem("user_email");
+  $scope.user_rol   = localStorage.getItem("user_rol");
+  $scope.user_id    = localStorage.getItem("user_id"); 
   
   /*
 	//List branch
@@ -553,11 +547,10 @@ app.controller('branchesCtrl', function($scope, $http,$sce, $rootScope) {
 //························································
 //························································
 app.controller('branchCtrl', function($scope, $http, $routeParams, $rootScope, $sce, $timeout) {  
-  $scope.username = localStorage.getItem("user_name");
-  $scope.user_img = localStorage.getItem("user_img");
-  $scope.user_id  = localStorage.getItem("user_id");  
-  $scope.rol        = localStorage.getItem("user_rol");
-  var user_id     = localStorage.getItem("user_id");  
+  $scope.username   = localStorage.getItem("user_name");
+  $scope.user_email = localStorage.getItem("user_email");
+  $scope.user_rol   = localStorage.getItem("user_rol");
+  $scope.user_id    = localStorage.getItem("user_id");   
   $scope.device = $routeParams.deviceId; //device id
   
 	/*
