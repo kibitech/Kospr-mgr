@@ -1,0 +1,26 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">    
+    <div class="modal-body">      
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">                                
+            <div class="opacity well-base">
+              <h3 class="text-center"><span class="text-muted"><i class="fa fa-users text-dark" aria-hidden="true"></i> Users</span></h3>
+              <hr>              
+              <ul class="list-group" ng-repeat="(key, u) in users">
+                <li class="list-group-item">
+                  <div class="row">
+                    <span class="col-md-1" ng-if="u.status == 1"><i class="fa fa-circle text-info" aria-hidden="true"></i></span> 
+                    <span class="col-md-1" ng-if="u.status == 0"><i class="fa fa-circle text-danger" aria-hidden="true"></i></span>  
+                    <span class="col-md-3">{{u.username}}</span> | <span class="col-md-5">{{u.type}}</span>
+                    <span class="col-md-1 text-muted cursor"> <i class="fa fa-cog" aria-hidden="true"></i> </span><span class="col-md-1 text-muted cursor"><i class="fa fa-trash" aria-hidden="true"></i></span>
+                  </div> 
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

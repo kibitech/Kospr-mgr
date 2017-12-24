@@ -1,0 +1,54 @@
+<loading></loading>
+<div style="height:4em">.</div>
+<div class="container-fluid" style="height:{{height_screen_dashboard}}px;">
+  <div class="row">
+    <div class="col-md-10">  	
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-muted"><i class="fa fa-shield text-secondary" aria-hidden="true"></i> Security</h1>
+        </div>        
+      </div>
+      <hr>
+      <br>  
+      <div ng-repeat = "s in security">
+        <div class="card border-dark mb-3" style="max-width: 20rem;float:left;margin-left:5em;width:15em;">
+          <div class="card-header text-light bg-dark">            
+            <div class="row">
+              <div class="col-md-8">
+                <i class="fa fa-shield" aria-hidden="true"></i>                
+              </div>              
+              <div class="col-md-1">                       
+                <i class="fa {{s.icon}}" aria-hidden="true"></i>         
+              </div>
+              <div ng-if="s.add == true" class="col-md-1 cursor" title="{{s.add_title}}">                       
+                <i class="fa fa-plus" aria-hidden="true" data-toggle="modal" data-target="#{{s.add_modal}}" ></i>         
+              </div>
+            </div>
+          </div>
+          <div class="card-body text-danger">
+            <!--Link-->
+            <h4 ng-if="s.mode == 'link'" class="card-title text-center"><a href="{{s.url}}" style="text-decoration:none;" class="text-dark"> {{s.name}}</a></h4>           
+            <!--Modal-->
+            <h4 ng-if="s.mode == 'modal'" class="card-title text-center cursor"><a data-toggle="modal" data-target="#users" style="text-decoration:none;" class="text-dark"> {{s.name}}</a></h4>                       
+          </div>         
+        </div>
+      </div>
+    </div> 
+    <div class="col-md-2">
+       <div ng-include="'/views/menu.html'"></div>
+    </div>
+  </div>    
+</div>
+
+<!-- Modales -->
+<div class="modal fade" id="users" tabindex="-1" role="dialog" aria-labelledby="users" aria-hidden="true">  
+	<div ng-include="'views/security/users.html'"></div>
+</div>
+<div class="modal fade" id="add_user" tabindex="-1" role="dialog" aria-labelledby="add_user" aria-hidden="true">  
+	<div ng-include="'views/security/add_user.html'"></div>
+</div>
+<div class="modal fade" id="general_report" tabindex="-1" role="dialog" aria-labelledby="general_report" aria-hidden="true">  
+	<div ng-include="'views/branches/general_report.html'"></div>
+</div>
+<!-- Modales -->	

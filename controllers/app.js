@@ -30,7 +30,12 @@
 				templateUrl : 'views/dashboard.html',
 				controller  : 'dashboardCtrl'
 			})	
-						
+			
+			.when('/security', {
+				templateUrl : 'views/security/security.html',
+				controller  : 'securityCtrl'
+			})
+
 			.when('/branches', {
 				templateUrl : 'views/branches/branches.html',
 				controller  : 'branchesCtrl'

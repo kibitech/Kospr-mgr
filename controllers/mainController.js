@@ -13,6 +13,8 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
   $scope.height_screen_menu = screen.height - (screen.height * 0.24);
   $scope.height_screen_dashboard = screen.height - (screen.height * 0.24);    
   
+  $scope.dashboard = [{name:"Security",url:"/#/security",icon:"fa-shield"},{name:"Branches",url:"/#/branches",icon:"fa-map-marker"}]
+
   //Test
   $http.get(url+'/users',headers).then(successCallback_, errorCallback_);
     function successCallback_(wuser){
@@ -433,6 +435,52 @@ app.controller('dashboardCtrl', function($scope, $http,$sce, $rootScope) {
   $scope.user_email = localStorage.getItem("user_email");
   $scope.user_rol   = localStorage.getItem("user_rol");
   $scope.user_id    = localStorage.getItem("user_id");    
+});
+
+//························································
+//························································
+//··              SECURITY CONTROLLER                   ··
+//························································
+//························································
+app.controller('securityCtrl', function($scope, $http, $routeParams, $rootScope, $sce, $timeout) {  
+  $scope.username   = localStorage.getItem("user_name");
+  $scope.user_email = localStorage.getItem("user_email");
+  $scope.user_rol   = localStorage.getItem("user_rol");
+  $scope.user_id    = localStorage.getItem("user_id");   
+  
+  //Menu options
+  $rootScope.security = [{name:"Users",icon:"fa-users",mode:"modal",modal:"users",add:true, add_title:"Add new user",add_modal:"add_user"},{name:"Branches",url:"/#/branches",icon:"fa-map-marker",mode:"link"}]
+
+  //List Users
+  $http.get(url+'/users',headers).then(successCallback_, errorCallback_);
+  function successCallback_(res){
+    $rootScope.users = res.data;         
+  }
+  function errorCallback_(error){
+      //error code
+  } 
+
+  //List Users type
+  $http.get(url+'/users/type',headers).then(successCallback_, errorCallback_);
+  function successCallback_(res){
+    $rootScope.users_type = res.data;         
+  }
+  function errorCallback_(error){
+      //error code
+  }  
+
+  /*
+  //List employees
+  $http.get(url+apikey+'/employee/list/'+$scope.device).then(successCallback, errorCallback);
+  function successCallback(data){
+    $scope.employees = data.data;
+  }
+  function errorCallback(error){
+      //error code
+  }
+  //    
+  */
+  
 });
 
 //························································
