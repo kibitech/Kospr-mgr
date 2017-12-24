@@ -12,12 +12,13 @@
 		}
 		else
 		{
-			temp = 'views/home.html';
+			temp = 'views/home.html'; //'<br><br><br><br><br><h1>HOLA</h1>';
 			ctrl = 'mainController';
 		}
 		
-		//$locationProvider.html5Mode(true);		
+		//$locationProvider.html5Mode(true);				
 		$locationProvider.hashPrefix('');
+		console.log($routeProvider)
 		$routeProvider
 
 			.when('/', {
@@ -25,18 +26,17 @@
 				controller  : ctrl
 			})
 
-
 			.when('/dashboard', {
 				templateUrl : 'views/dashboard.html',
 				controller  : 'dashboardCtrl'
 			})	
-			
-			/*
+						
 			.when('/branches', {
 				templateUrl : 'views/branches/branches.html',
 				controller  : 'branchesCtrl'
 			})
-		
+
+			/*
 			.when('/branch/:deviceId', {
 				templateUrl : 'views/branches/branch/branch.html',
 				controller  : 'branchCtrl'

@@ -265,7 +265,7 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
 //··                  LOGIN CONTROLLER                  ··
 //························································
 //························································
-app.controller('loginController', function($scope,$http,$rootScope,$compile) {
+app.controller('loginController', function($scope,$http,$rootScope) {
   $scope.login = function(data)
   {
     var username     = data.user;

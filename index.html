@@ -3,117 +3,119 @@
 <html ng-app="app">
 
 <head>  
-	<base href="/"/>
-	<meta charset="UTF-8">
+    <base href="/"/>
+    <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Kospr</title>
 
   <!--Favicon-->
   <link rel="icon" type="image/png" sizes="192x192" href="assets/img/favicon.png">
-	<link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
 
   <!-- Font Awesome -->
-	<!-- bower install components-font-awesome --save -->
-	<link rel="stylesheet" type="text/css" href="bower_components/components-font-awesome/css/font-awesome.min.css">
+  <!-- bower install components-font-awesome --save -->
+  <link rel="stylesheet" type="text/css" href="bower_components/components-font-awesome/css/font-awesome.min.css">
 
   <!-- Bootstrap -->
   <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>	
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<!--<link rel="stylesheet" type="text/css" href="assets/libs/bootstrap_flatly/bootstrap_flatly.min.css">-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>     
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!--<link rel="stylesheet" type="text/css" href="assets/libs/bootstrap_flatly/bootstrap_flatly.min.css">-->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <!-- Angular -->
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-route/angular-route.min.js"></script>  
-	
-	<!--Sanitize-->
-	<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-	
-	<!-- Animate -->
-  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-	
-	<!-- Time picker -->
-	<script src="bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-	<link rel="stylesheet" href="bower_components/bootstrap-timepicker/css/timepicker.less">
-	
-	<!-- Checkbox -->
-	<script src="bower_components/checklist-model/checklist-model.js"></script>
-	
-	<!-- Data tables -->	
-	<script src="assets/libs/angular-export/tableExport.js"></script>
-	<script src="assets/libs/angular-export/jquery.base64.js"></script>
-	<script src="assets/libs/angular-export/sprintf.js"></script>
-	<script src="assets/libs/angular-export/jspdf.js"></script>
-	<script src="assets/libs/angular-export/base64.js"></script>	
+  
+    <!--Sanitize-->
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 
-	<!-- System -->
-  <link rel="stylesheet" type="text/css" href="assets/css/index.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-xl-xxl.css">	
-  <script src="controllers/app.js"></script>
-	<script src="controllers/directives.js"></script>
-	<script src="controllers/filters.js"></script>
-  <script src="controllers/mainController.js"></script>
-	
+    <!-- Animate -->
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+
+    <!-- Time picker -->
+    <script src="bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap-timepicker/css/timepicker.less">
+
+    <!-- Checkbox -->
+    <script src="bower_components/checklist-model/checklist-model.js"></script>
+
+    <!-- Data tables -->    
+    <!--<script src="assets/libs/angular-export/tableExport.js"></script>
+    <script src="assets/libs/angular-export/jquery.base64.js"></script>
+    <script src="assets/libs/angular-export/sprintf.js"></script>
+    <script src="assets/libs/angular-export/jspdf.js"></script>
+    <script src="assets/libs/angular-export/base64.js"></script>    -->
+
+    <!-- System -->
+    <link rel="stylesheet" type="text/css" href="assets/css/index.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-xl-xxl.css">  
+    <script src="controllers/app.js"></script>
+    <script src="controllers/directives.js"></script>
+    <script src="controllers/filters.js"></script>-->
+    <script src="controllers/mainController.js"></script>
+    
 </head>
 <body ng-controller="mainController">
-	<!--nav-->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <!--nav-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0" ng-show="loged">    
-			<li class="nav-item">
+            <li class="nav-item">
         <a class="nav-link" href="/#/{{username}}"><img src="{{img_route(user_img)}}" class="rounded" width="40" height="40" alt="!{{username}}" title="!{{username}}"></a>
       </li>
-			<li class="nav-item">
-				<a class="nav-link" ng-click="logout()"><i class="fa fa-sign-out" style="font-size: 20px"></i></a>
-			</li>     
-    </ul>				
-		<!--login-->	
-		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">			
-			<ul lass="form-inline my-2 my-lg-0" ng-hide="loged">										
-				<form class="form-inline my-2 my-lg-0" name="signinForm" ng-submit="login(user)" ng-controller="loginController" ng-init="loading = false; error = false" novalidate>
-					<div class="form-group" ng-class="{ 'has-error' : signinForm.user.$invalid && !signinForm.user.$pristine }"></div>
-					<input type="text" class="form-control" id="user" placeholder="Username" name="user" ng-model="user.user" ng-minlength="3" autofocus="true" required>
-					<p ng-show="signinForm.user.$error.minlength" class="help-block">Username is too short.</p>
-					<input type="password" class="form-control" placeholder="Password" name="password" ng-model="user.password" required>
-					<button type="submit" class="btn btn-dark hidden-xs" ng-disabled="signinForm.$invalid">
-							Login
-					</button>	
-					<span style="color:white">|</span>
-					<button type="button" class="btn btn-dark hidden-xs" data-toggle="modal" data-target="#register">
-							Register
-					</button>	
-				</form>
-				<!--<small id="passwordHelpInline" data-toggle="modal" data-target="#rec_con">
-					<span style="color:white;"> Forgot your password? </span>
-				</small>-->
-			</ul>
-		</div>
-		<!--login-->		
+            <li class="nav-item">
+                <a class="nav-link" ng-click="logout()"><i class="fa fa-sign-out" style="font-size: 20px"></i></a>
+            </li>     
+    </ul>               
+        <!--login-->    
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">         
+            <ul lass="form-inline my-2 my-lg-0" ng-hide="loged">                                        
+                <form class="form-inline my-2 my-lg-0" name="signinForm" ng-submit="login(user)" ng-controller="loginController" ng-init="loading = false; error = false" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error' : signinForm.user.$invalid && !signinForm.user.$pristine }"></div>
+                    <input type="text" class="form-control" id="user" placeholder="Username" name="user" ng-model="user.user" ng-minlength="3" autofocus="true" required>
+                    <p ng-show="signinForm.user.$error.minlength" class="help-block">Username is too short.</p>
+                    <input type="password" class="form-control" placeholder="Password" name="password" ng-model="user.password" required>
+                    <button type="submit" class="btn btn-dark hidden-xs" ng-disabled="signinForm.$invalid">
+                            Login
+                    </button>   
+                    <span style="color:white">|</span>
+                    <button type="button" class="btn btn-dark hidden-xs" data-toggle="modal" data-target="#register">
+                            Register
+                    </button>   
+                </form>
+                <!--<small id="passwordHelpInline" data-toggle="modal" data-target="#rec_con">
+                    <span style="color:white;"> Forgot your password? </span>
+                </small>-->
+            </ul>
+        </div>
+        <!--login-->        
     <form class="form-inline my-2 my-lg-0">
-			<div class="form-group">					
-				<a class="navbar-brand" href="/#!/" style="font-size: 35px;">Kospr</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>      
-			</div>
-    </form>		  	
+            <div class="form-group">                    
+                <a class="navbar-brand" href="/#!/" style="font-size: 35px;">Kospr</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>      
+            </div>
+    </form>         
 </nav>
-	<!--nav-->
-	<div ng-view></div>  
-	<!-- Modales -->
-	<div class="modal fade" id="rec_con" tabindex="-1" role="dialog" aria-labelledby="rec_con" aria-hidden="true">  
-		<div ng-include="'views/forgot_password.html'"></div>
-	</div>
-	<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="register" aria-hidden="true">  
-		<div ng-include="'views/register.html'"></div>
-	</div>
-	<!-- Modales -->	
+    <!--nav-->
+    <div ng-view></div>  
+    <!-- Modales -->
+    <div class="modal fade" id="rec_con" tabindex="-1" role="dialog" aria-labelledby="rec_con" aria-hidden="true">  
+        <div ng-include="'views/forgot_password.html'"></div>
+    </div>
+    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="register" aria-hidden="true">  
+        <div ng-include="'views/register.html'"></div>
+    </div>
+    <!-- Modales -->    
 </body>
 <footer class="text-center text-muted">
-	<hr width="10%">
-	<p>Kospr - 2017</p>
+    <hr width="10%">
+    <p>Kospr - 2017</p>
 </footer>
 <loading></loading>
 </html>
+
+
