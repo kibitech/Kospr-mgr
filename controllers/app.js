@@ -1,7 +1,7 @@
 	// create the module and name it woonked
-	var app = angular.module('app', ['ngRoute','ngSanitize',"checklist-model"]);
+	var app = angular.module('app', ['ngRoute','ngSanitize']);
 	// configure our routes
-	app.config(["$routeProvider","$locationProvider",function($routeProvider,$locationProvider) {		
+	app.config(["$routeProvider","$locationProvider","$httpProvider",function($routeProvider,$locationProvider,$httpProvider) {		
 		var signed = localStorage.getItem("signed_in");
 		var temp;
 		var ctrl;		
@@ -12,13 +12,14 @@
 		}
 		else
 		{
-			temp = 'views/home.html'; //'<br><br><br><br><br><h1>HOLA</h1>';
+			temp = 'views/home.html';
 			ctrl = 'mainController';
 		}
 		
 		//$locationProvider.html5Mode(true);				
-		$locationProvider.hashPrefix('');
-		console.log($routeProvider)
+		var apikey        = localStorage.getItem("apikey");
+		$httpProvider.defaults.headers.common['Authorization'] = 'Bearer '+apikey;
+		$locationProvider.hashPrefix('');	
 		$routeProvider
 
 			.when('/', {

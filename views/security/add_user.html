@@ -10,19 +10,22 @@
               <form name="form_add_user">
                 <fieldset>
                   <div class="form-group">
-                    <input class="form-control" placeholder="Username" type="text" ng-model="a_user.key" class="form-control" required>
+                    <input class="form-control" placeholder="Username" type="text" ng-model="a_user.username" class="form-control" required>
                   </div>
                   <div class="form-group">
-                    <input class="form-control" placeholder="Email" type="text" ng-model="a_user.key" class="form-control" required>
+                    <input class="form-control" placeholder="Email" type="email" ng-model="a_user.email" class="form-control" required>
                   </div> 
                   <div class="form-group">
-                    <input class="form-control" placeholder="Password" type="text" ng-model="a_user.key" class="form-control" required>
+                    <input class="form-control" placeholder="Password" type="password" ng-model="a_user.password_1" class="form-control" required>
                   </div>                        
                   <div class="form-group">
-                    <input class="form-control" placeholder="Password" type="text" ng-model="a_user.key" class="form-control" required>
-                  </div>          
-                  <select name="" id="">Select User type</select> 
-                  {{users_type}}                                                                             
+                    <input class="form-control" placeholder="Password" type="password" ng-model="a_user.password_2" class="form-control" required>
+                  </div> 
+                  <div class="form-group">                    
+                    <select id="type" ng-model="a_user.type" name="type" ng-options="ut.name for ut in users_type"  class="form-control custom-select" required>
+                        <option value="">Select user type</option>
+                    </select>
+                  </div>                          
                   <div class="form-group">
                       <button type="button" class="btn btn-dark btn-block" ng-disabled="form_add_user.$invalid" ng-click="add_user(a_user)">Add</button>
                   </div>
