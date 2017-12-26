@@ -43,21 +43,14 @@
 			})
 
 			.when('/nodes', {
-				templateUrl : 'views/knodes/knodes.html',
-				controller  : 'knodesCtrl'
+				templateUrl : 'views/nodes/nodes.html',
+				controller  : 'nodesCtrl'
 			})
 
-			.when('/branches', {
-				templateUrl : 'views/branches/branches.html',
-				controller  : 'branchesCtrl'
+			.when('/node/:nodeId', {
+				templateUrl : 'views/nodes/node/node.html',
+				controller  : 'nodeCtrl'
 			})
-
-			/*
-			.when('/branch/:deviceId', {
-				templateUrl : 'views/branches/branch/branch.html',
-				controller  : 'branchCtrl'
-			})
-			*/
 		
 			.otherwise({ redirectTo: '/' });
 	}]);
