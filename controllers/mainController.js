@@ -11,8 +11,9 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
   $scope.height_screen_menu = screen.height - (screen.height * 0.24);
   $scope.height_screen_dashboard = screen.height - (screen.height * 0.24);    
   
-  $scope.dashboard = [{name:"Security",url:"/#/security",icon:"fa-shield"},{name:"Branches",url:"/#/branches",icon:"fa-map-marker"}]
+  $scope.dashboard = [{name:"Security",url:"/#/security",icon:"fa-shield"},{name:"Segments",url:"/#/segments",icon:"fa-cubes"},{name:"Nodes",url:"/#/nodes",icon:"fa-cube"},{name:"Branches",url:"/#/branches",icon:"fa-map-marker"}]
 
+  /*
   //Test
   $http.get(url+'/users').then(successCallback_, errorCallback_);
     function successCallback_(wuser){
@@ -21,8 +22,8 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
     function errorCallback_(error){
         //error code
     }        
-  //
-
+  //Test
+  */
   $scope.logout = function() {
     $scope.loading = true;
     $(".loading").fadeIn("300");
@@ -52,14 +53,12 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
   }      
   
   $scope.login_auto=function(user,pass)
-  {
-    //alert("autologin-"+user+'-'+pass);
+  {    
     $scope.loading = true;
     $(".loading").fadeIn("300");  
     //
     $http.get(url+'/login/{"username":"'+username.toLowerCase()+'", "password":"'+pass+'"}').then(successCallback, errorCallback);
-    function successCallback(res){
-      //console.log("RESP",res.data)
+    function successCallback(res){      
       if(res.data.login == true)
       {        
         localStorage.setItem("signed_in", true);
@@ -84,16 +83,6 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
     }
     //
   }
-
-  //$http.defaults.Authorization = 'Bearer '+apikey;
-  //Get token  
-  /*$http.post(url+'/api/token/{"username":"admin","password":"admin"}').then(successCallback_, errorCallback_);
-  function successCallback_(token){
-    console.log(token.data.token);    
-  }
-  function errorCallback_(error){
-      //error code
-  } */
   
   //·················································/
   //················ S E R V I C E S ················/
@@ -122,80 +111,6 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
   {
     return encodeURIComponent(val);
   }
-
-	//Upload
-	
-	//Set image to full view
-  $rootScope.set_image = function(src)
-  {		
-    $rootScope.image_src = src		
-  }
-	
-	//Set upload option
-  $rootScope.set_upload_option = function(option,id,index,id2,index2)
-  {
-    $rootScope.upload_option = option;  
-    if(option == "employee_photo")
-    {
-      $rootScope.upload_employee_id    = id;
-      $rootScope.upload_employee_index = index;
-    }    
-  }
-	
-	//Get upload photo for preview image
-  $rootScope.img_prev = function(input)
-  {		
-    if (input.files && input.files[0]) {
-      $scope.reader = new FileReader();
-			//Mejora de la versión.
-      $scope.reader.onload = $scope.imageIsLoaded 
-      $scope.reader.readAsDataURL(input.files[0]);
-    }
-		
-  }
-	
-	//Mejora de la versión
-	$scope.imageIsLoaded = function(e){
-    $scope.$apply(function() {
-        $scope.prev_src =e.target.result;
-    });
-	}
-	
-  
-  //Clear photo selected
-  $scope.prev_src_clr = function()
-  {
-    $scope.prev_src ='';
-  }
-	
-	//Upload photo
-  $rootScope.uploadFile = function(option){
-    var file = this.myFile;
-    var uploadUrl = url+"upload";
-    var modal_opt = '#upload_photo';
-    if(option=="employee_photo")
-    {
-      var data = JSON.stringify({apikey:apikey,option:"photo_employee",employee:$rootScope.upload_employee_id});
-    }      
-    fileUpload.uploadFileToUrl(file,data, uploadUrl).then(function(res) {
-      if(res == false)
-      {
-        alert("You don't have allow to upload files.")
-      }
-      else
-      {                        
-        alert("Photo upload successfull!")
-        if(option == "employee_photo")
-        {   
-					$rootScope.employees[$rootScope.upload_employee_index].img = res.path
-        }        
-        $scope.prev_src ='';
-        $(modal_opt).modal('hide');
-      }
-    });
-  };
-	
-	//Upload
 });
 
 //························································
@@ -213,7 +128,6 @@ app.controller('loginController', function($scope,$http,$rootScope) {
     //
     $http.get(url+'/login/{"username":"'+username.toLowerCase()+'", "password":"'+password+'"}').then(successCallback, errorCallback);
     function successCallback(res){
-      //console.log("RESP",res.data.user)
       if(res.data.login == true)
       {        
         localStorage.setItem("signed_in", true);
@@ -318,8 +232,7 @@ app.controller('securityCtrl', function($scope, $http, $routeParams, $rootScope,
       //error code
   }  
 
-  //Add user
-  //http://localhost:4000/user/add/{"username":"judlup","password":"kibitech","email":"judlup@domoteco.com","type":"1"}
+  //Add user  
   $scope.add_user = function(json) {   
     if(json.password_1 == json.password_2)
     {          
@@ -347,24 +260,200 @@ app.controller('securityCtrl', function($scope, $http, $routeParams, $rootScope,
     else
     {
       alert("Password not match")
+    }    
+  }
+
+  //Del user
+  $scope.del_user = function(){    
+    var id = this.users[this.$index].id;
+    var scope = this.users;
+    var index = this.$index;                       
+    var conf = confirm("do you are sure to you want to delete this user?");
+    if(conf)
+    {          
+      $http.get(url+'/user/del/'+this.u.id).then(successCallback, errorCallback);
+      function successCallback(res){ 
+        if(res.data.user_del)  
+        {
+          if(scope.length -1 == index)
+          {      
+            scope.splice(-1,1)
+          }
+          else
+          {
+            scope.splice(index, 1);
+          }          
+        }
+        else
+        {
+          alert("Error, please try later again!");
+        }
+        
+      }
+      function errorCallback(error){
+          //error code
+      } 
     }
-    
-  }
-
-
-  /*
-  //List employees
-  $http.get(url+apikey+'/employee/list/'+$scope.device).then(successCallback, errorCallback);
-  function successCallback(data){
-    $scope.employees = data.data;
-  }
-  function errorCallback(error){
-      //error code
-  }
-  //    
-  */
+  }  
   
 });
+
+//························································
+//························································
+//··              SECURITY CONTROLLER                   ··
+//························································
+//························································
+app.controller('segmentsCtrl', function($scope, $http, $routeParams, $rootScope, $sce, $timeout) {  
+  $scope.username   = localStorage.getItem("user_name");
+  $scope.user_email = localStorage.getItem("user_email");
+  $scope.user_rol   = localStorage.getItem("user_rol");
+  $scope.user_id    = localStorage.getItem("user_id");   
+  $scope.apikey     = localStorage.getItem("apikey");    
+  //Menu options
+  //$rootScope.security = [{name:"Users",icon:"fa-users",mode:"modal",modal:"users",add:true, add_title:"Add new user",add_modal:"add_user"},{name:"Branches",url:"/#/branches",icon:"fa-map-marker",mode:"link"}]
+  
+  //List Segments
+  $http.get(url+'/segments').then(successCallback_, errorCallback_);
+  function successCallback_(res){    
+    $rootScope.segments = res.data;         
+  }
+  function errorCallback_(error){
+      //error code
+  } 
+
+  //Add segment
+  $scope.add_segment = function(data) {       
+    $scope.loading = true;
+    $(".loading").fadeIn("300"); 
+    $http.get(url+'/segment/add/{"name":"'+data.name+'"}').then(successCallback_, errorCallback_);
+    function successCallback_(res){    
+      if(res.data.segment_add) {
+        $scope.segments.push({"id":res.data.last_segment,"name":data.name,"date":$scope.date_,"status":1})    
+        $scope.loading = false;
+        $(".loading").fadeOut("300");
+        $('#add_segment').modal('hide'); 
+      } 
+      else{
+        alert("Error, please try later again!");
+      }      
+    }
+    function errorCallback_(error){
+        //error code
+    }
+  }
+
+   //Del user
+  $scope.del_segment = function(){    
+    var id = this.segments[this.$index].id;
+    var scope = this.segments;
+    var index = this.$index;                       
+    var conf = confirm("do you are sure to you want to delete this segment?");
+    if(conf)
+    {          
+      $http.get(url+'/segment/del/'+this.s.id).then(successCallback, errorCallback);
+      function successCallback(res){ 
+        if(res.data.del_segment)  
+        {
+          if(scope.length -1 == index)
+          {      
+            scope.splice(-1,1)
+          }
+          else
+          {
+            scope.splice(index, 1);
+          }          
+        }
+        else
+        {
+          alert("Error, please try later again!");
+        }
+        
+      }
+      function errorCallback(error){
+          //error code
+      }       
+    }
+  }  
+});
+
+//························································
+//························································
+//··                 NODES CONTROLLER                   ··
+//························································
+//························································
+app.controller('knodesCtrl', function($scope, $http, $routeParams, $rootScope, $sce, $timeout) {  
+  $scope.username   = localStorage.getItem("user_name");
+  $scope.user_email = localStorage.getItem("user_email");
+  $scope.user_rol   = localStorage.getItem("user_rol");
+  $scope.user_id    = localStorage.getItem("user_id");   
+  $scope.apikey     = localStorage.getItem("apikey");    
+  
+  /*
+  //List Segments
+  $http.get(url+'/nodes').then(successCallback_, errorCallback_);
+  function successCallback_(res){    
+    $rootScope.nodes = res.data;         
+  }
+  function errorCallback_(error){
+      //error code
+  } 
+
+  //Add segment
+  $scope.add_segment = function(data) {       
+    $scope.loading = true;
+    $(".loading").fadeIn("300"); 
+    $http.get(url+'/segment/add/{"name":"'+data.name+'"}').then(successCallback_, errorCallback_);
+    function successCallback_(res){    
+      if(res.data.segment_add) {
+        $scope.segments.push({"id":res.data.last_segment,"name":data.name,"date":$scope.date_,"status":1})    
+        $scope.loading = false;
+        $(".loading").fadeOut("300");
+        $('#add_segment').modal('hide'); 
+      } 
+      else{
+        alert("Error, please try later again!");
+      }      
+    }
+    function errorCallback_(error){
+        //error code
+    }
+  }
+
+   //Del user
+  $scope.del_segment = function(){    
+    var id = this.segments[this.$index].id;
+    var scope = this.segments;
+    var index = this.$index;                       
+    var conf = confirm("do you are sure to you want to delete this segment?");
+    if(conf)
+    {          
+      $http.get(url+'/segment/del/'+this.s.id).then(successCallback, errorCallback);
+      function successCallback(res){ 
+        if(res.data.del_segment)  
+        {
+          if(scope.length -1 == index)
+          {      
+            scope.splice(-1,1)
+          }
+          else
+          {
+            scope.splice(index, 1);
+          }          
+        }
+        else
+        {
+          alert("Error, please try later again!");
+        }
+        
+      }
+      function errorCallback(error){
+          //error code
+      }       
+    }
+  }  
+  */
+});
+
 
 //························································
 //························································

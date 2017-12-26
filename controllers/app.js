@@ -37,6 +37,16 @@
 				controller  : 'securityCtrl'
 			})
 
+			.when('/segments', {
+				templateUrl : 'views/segments/segments.html',
+				controller  : 'segmentsCtrl'
+			})
+
+			.when('/nodes', {
+				templateUrl : 'views/knodes/knodes.html',
+				controller  : 'knodesCtrl'
+			})
+
 			.when('/branches', {
 				templateUrl : 'views/branches/branches.html',
 				controller  : 'branchesCtrl'

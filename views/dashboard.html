@@ -4,9 +4,7 @@
     <div class="col-md-12">  	
       <br>
       <h1 class="text-muted">        
-        <i class="fa fa-connectdevelop text-secondary" aria-hidden="true"></i> Dashboard        
-        <small class="text-sm pull-right cursor"> <i class="fa fa-key text-secondary" aria-hidden="true"></i> Get key</small>
-
+        <i class="fa fa-connectdevelop text-secondary" aria-hidden="true"></i> Dashboard                
       </h1>
       <hr>
       <br>
@@ -14,10 +12,9 @@
         <div class="col-md-2 cursor" ng-repeat="(key, db) in dashboard">
           <div class="card text-white bg-dark mb-3" style="max-width: 20rem;width:70%;">
             <a ng-href="{{db.url}}" style="text-decoration:none;color:white;">
-              <div class="card-header">{{db.name}}</div>
+              <div class="card-header text-center">{{db.name}}</div>
               <div class="card-body">
-                <h4 class="card-title text-center"><i class="fa {{db.icon}} text-lg" aria-hidden="true"></i></h4>
-                <p class="card-text text-center">Branch management.</p>
+                <h4 class="card-title text-center"><i class="fa {{db.icon}} text-lg" aria-hidden="true"></i></h4>                
               </div>
             </a>  
           </div>

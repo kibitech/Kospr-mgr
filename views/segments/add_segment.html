@@ -1,0 +1,26 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">    
+    <div class="modal-body">      
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">                                
+            <div class="opacity well-base">
+              <h3 class="text-center"><span class="text-muted"><i class="fa fa-cubes text-dark" aria-hidden="true"></i> Add Segment</span></h3>
+              <hr> 
+              <form name="form_add_segment">
+                <fieldset>
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Name" type="text" ng-model="a_segment.name" class="form-control" required>
+                  </div>                                          
+                  <div class="form-group">
+                      <button type="button" class="btn btn-dark btn-block" ng-disabled="form_add_segment.$invalid" ng-click="add_segment(a_segment)">Add</button>
+                  </div>
+                </fieldset>
+              </form>                           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>
