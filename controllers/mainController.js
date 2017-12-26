@@ -11,7 +11,7 @@ app.controller('mainController', function($scope,$http,$route,$rootScope,$locati
   $scope.height_screen_menu = screen.height - (screen.height * 0.24);
   $scope.height_screen_dashboard = screen.height - (screen.height * 0.24);    
   
-  $scope.dashboard = [{name:"Security",url:"/#/security",icon:"fa-shield"},{name:"Segments",url:"/#/segments",icon:"fa-cubes"},{name:"Nodes",url:"/#/nodes",icon:"fa-cube"},{name:"Branches",url:"/#/branches",icon:"fa-map-marker"}]
+  $scope.dashboard = [{name:"Security",url:"/#/security",icon:"fa-shield"},{name:"Segments",url:"/#/segments",icon:"fa-cubes"},{name:"Nodes",url:"/#/nodes",icon:"fa-cube"}]
 
   /*
   //Test
@@ -300,7 +300,7 @@ app.controller('securityCtrl', function($scope, $http, $routeParams, $rootScope,
 
 //························································
 //························································
-//··              SECURITY CONTROLLER                   ··
+//··              SEGMENTS CONTROLLER                   ··
 //························································
 //························································
 app.controller('segmentsCtrl', function($scope, $http, $routeParams, $rootScope, $sce, $timeout) {  
@@ -308,9 +308,7 @@ app.controller('segmentsCtrl', function($scope, $http, $routeParams, $rootScope,
   $scope.user_email = localStorage.getItem("user_email");
   $scope.user_rol   = localStorage.getItem("user_rol");
   $scope.user_id    = localStorage.getItem("user_id");   
-  $scope.apikey     = localStorage.getItem("apikey");    
-  //Menu options
-  //$rootScope.security = [{name:"Users",icon:"fa-users",mode:"modal",modal:"users",add:true, add_title:"Add new user",add_modal:"add_user"},{name:"Branches",url:"/#/branches",icon:"fa-map-marker",mode:"link"}]
+  $scope.apikey     = localStorage.getItem("apikey");      
   
   //List Segments
   $http.get(url+'/segments').then(successCallback_, errorCallback_);
@@ -381,15 +379,14 @@ app.controller('segmentsCtrl', function($scope, $http, $routeParams, $rootScope,
 //··                 NODES CONTROLLER                   ··
 //························································
 //························································
-app.controller('knodesCtrl', function($scope, $http, $routeParams, $rootScope, $sce, $timeout) {  
+app.controller('nodesCtrl', function($scope, $http, $routeParams, $rootScope, $sce, $timeout) {  
   $scope.username   = localStorage.getItem("user_name");
   $scope.user_email = localStorage.getItem("user_email");
   $scope.user_rol   = localStorage.getItem("user_rol");
   $scope.user_id    = localStorage.getItem("user_id");   
   $scope.apikey     = localStorage.getItem("apikey");    
   
-  /*
-  //List Segments
+  //List Nodes
   $http.get(url+'/nodes').then(successCallback_, errorCallback_);
   function successCallback_(res){    
     $rootScope.nodes = res.data;         
@@ -398,17 +395,26 @@ app.controller('knodesCtrl', function($scope, $http, $routeParams, $rootScope, $
       //error code
   } 
 
-  //Add segment
-  $scope.add_segment = function(data) {       
+  //List Segments
+  $http.get(url+'/segments').then(successCallback_segments, errorCallback_segments);
+  function successCallback_segments(res){    
+    $rootScope.segments = res.data;         
+  }
+  function errorCallback_segments(error){
+      //error code
+  } 
+
+  //Add node
+  $scope.add_node = function(data) {               
     $scope.loading = true;
     $(".loading").fadeIn("300"); 
-    $http.get(url+'/segment/add/{"name":"'+data.name+'"}').then(successCallback_, errorCallback_);
+    $http.get(url+'/nodes/add/{"sku":"'+data.sku+'","manufacturer":"'+data.manufacturer+'","version":"'+data.version+'","user":"'+$scope.user_id+'","segment":"'+data.segment.id+'"}').then(successCallback_, errorCallback_);
     function successCallback_(res){    
-      if(res.data.segment_add) {
-        $scope.segments.push({"id":res.data.last_segment,"name":data.name,"date":$scope.date_,"status":1})    
+      if(res.data.node_add) {
+        $scope.nodes.push({"id":res.data.last_node,"nodekey":res.data.nodekey,"sku":data.sku,"manufacturer":data.manufacturer,"version":data.version,"segment_id":data.segment.id,"segment_name":data.segment.name,"user_id":$scope.user_id,"username":$scope.username,"date":$scope.date_,"status":1});
         $scope.loading = false;
         $(".loading").fadeOut("300");
-        $('#add_segment').modal('hide'); 
+        $('#add_node').modal('hide'); 
       } 
       else{
         alert("Error, please try later again!");
@@ -419,17 +425,17 @@ app.controller('knodesCtrl', function($scope, $http, $routeParams, $rootScope, $
     }
   }
 
-   //Del user
-  $scope.del_segment = function(){    
+   //Del node
+  $scope.del_node = function(){    
     var id = this.segments[this.$index].id;
-    var scope = this.segments;
+    var scope = this.nodes;
     var index = this.$index;                       
-    var conf = confirm("do you are sure to you want to delete this segment?");
+    var conf = confirm("do you are sure to you want to delete this node?");
     if(conf)
     {          
-      $http.get(url+'/segment/del/'+this.s.id).then(successCallback, errorCallback);
+      $http.get(url+'/node/del/'+this.n.id).then(successCallback, errorCallback);
       function successCallback(res){ 
-        if(res.data.del_segment)  
+        if(res.data.node_del)  
         {
           if(scope.length -1 == index)
           {      
@@ -451,78 +457,29 @@ app.controller('knodesCtrl', function($scope, $http, $routeParams, $rootScope, $
       }       
     }
   }  
-  */
-});
-
-
-//························································
-//························································
-//··                  OFFICES CONTROLLER                ··
-//························································
-//························································
-app.controller('branchesCtrl', function($scope, $http,$sce, $rootScope) {
-  $scope.username   = localStorage.getItem("user_name");
-  $scope.user_email = localStorage.getItem("user_email");
-  $scope.user_rol   = localStorage.getItem("user_rol");
-  $scope.user_id    = localStorage.getItem("user_id"); 
-  $scope.apikey     = localStorage.getItem("apikey");  
-  
-  /*
-  
-  //Load information in modal.
-  $rootScope.show_edit_brand = function()
-  {
-    
-    $scope.e_branch = this.b;
-    $scope.e_b_index = this.$index    
-  }
-  
-  //Edit branch
-  $scope.edit_branch = function(data)
-  {
-    $scope.loading = true;
-    $(".loading").fadeIn("300");
-    //Edit branch
-    $http.get(url+apikey+'/devices/edit/{"device":"'+$scope.e_branch.ncd_id+'","name":"'+data.ncd_nom+'"}').then(successCallback, errorCallback);
-    function successCallback(data){
-      if(data.data.edit_edit)
-      {
-        $scope.loading = false;
-        $(".loading").fadeOut("300");
-        $('#edit_branch').modal('hide'); 
-      }      
-      else
-      {
-        alert("Error")
-      }
-    }
-    function errorCallback(error){
-        //error code
-    }
-    //   
-  }  
-	
-	$scope.load_branch = function()
-	{
-		$scope.branch_id = this.b.ncd_id;
-	}
-	*/
 });
 
 //························································
 //························································
-//··                BRANCH CONTROLLER                   ··
+//··                  NODE CONTROLLER                   ··
 //························································
 //························································
-app.controller('branchCtrl', function($scope, $http, $routeParams, $rootScope, $sce, $timeout) {  
+app.controller('nodeCtrl', function($scope, $http, $routeParams, $rootScope, $sce, $timeout) {  
   $scope.username   = localStorage.getItem("user_name");
   $scope.user_email = localStorage.getItem("user_email");
   $scope.user_rol   = localStorage.getItem("user_rol");
   $scope.user_id    = localStorage.getItem("user_id");  
   $scope.apikey     = localStorage.getItem("apikey");   
-  $scope.device     = $routeParams.deviceId; //device id
-  	
-	
+  $scope.nodeId       = $routeParams.nodeId;  
+  //List Node
+  $http.get(url+'/node/'+$scope.nodeId).then(successCallback_, errorCallback_);
+  function successCallback_(res){    
+    $rootScope.node = res.data;         
+  }
+  function errorCallback_(error){
+      //error code
+  } 
+  
 });
 
 Date.prototype.format = function(fstr, utc) {

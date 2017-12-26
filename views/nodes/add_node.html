@@ -1,0 +1,37 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">    
+    <div class="modal-body">      
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">                                
+            <div class="opacity well-base">
+              <h3 class="text-center"><span class="text-muted"><i class="fa fa-cube text-dark" aria-hidden="true"></i> Add Node</span></h3>
+              <hr> 
+              <form name="form_add_node">
+                <fieldset>
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Sku" type="text" ng-model="a_node.sku" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Manufacturer" type="text" ng-model="a_node.manufacturer" class="form-control" required>
+                  </div> 
+                  <div class="form-group">
+                    <input class="form-control" placeholder="Version" type="text" ng-model="a_node.version" class="form-control" required>
+                  </div>                                          
+                  <div class="form-group">                    
+                    <select id="type" ng-model="a_node.segment" name="type" ng-options="s.name for s in segments"  class="form-control custom-select" required>
+                        <option value="">Select a segment</option>
+                    </select>
+                  </div>                          
+                  <div class="form-group">
+                      <button type="button" class="btn btn-dark btn-block" ng-disabled="form_add_node.$invalid" ng-click="add_node(a_node)">Add</button>
+                  </div>
+                </fieldset>
+              </form>                           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

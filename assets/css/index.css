@@ -13,6 +13,13 @@ html,body,#map {
   padding: 0;
 }
 
+.icon-see-node {
+	color: #FFFFFF;
+}
+
+.icon-see-node :hover {
+	color: #FFFFFF;
+}
 
 .icon-index {
 	font-size: 70px;
